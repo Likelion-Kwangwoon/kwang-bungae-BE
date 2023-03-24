@@ -28,12 +28,13 @@
 → 이름 아무렇게나 작성해놓으면, 나중에 본인도 거기서 무슨 작업했는지 기억 못함⋯!   
 `ex) git commit -m 'haha'` 
 
-
+``` 
 type : subject
 
 body 
 
 footer
+``` 
 구조로 작성
 
 ### type
@@ -68,14 +69,19 @@ footer는 "유형: #이슈 번호" 형식으로 사용한다
 
 
 ### 
-Feat: "회원 가입 기능 구현"
+``` 
+feat: "회원 가입 기능 구현"
 
 SMS, 이메일 중복확인 API 개발
 
 Resolves: #123
-Ref: #456
-Related to: #48, #45
 
+Ref: #456
+
+Related to: #48, #45
+```  
+
+커밋 메세지의 줄을 띄우는 법은 그냥 따옴표를 닫지 않고 엔터를 눌러 줄 띄우고 쓰면 된다.
 
 
 `ex) git commit -m 'feat: Add map API'`  
