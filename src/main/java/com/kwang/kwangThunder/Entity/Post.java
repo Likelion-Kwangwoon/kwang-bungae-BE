@@ -1,16 +1,15 @@
 package com.kwang.kwangThunder.Entity;
 
 
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.Id;
+import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity // Table 생성
 @Data // getter setter 함수 안 만들어도 됨 !!
@@ -26,6 +25,16 @@ public class Post {
     private String title;
     private Integer people;
     private String link;
+
+    @OneToMany(mappedBy = "post") // Comment의 Post 객체 이름
+    private List<Comment> comments = new ArrayList<>();
+
+    public void addComment(Comment comment) {
+        this.comments.add(comment);
+        if (comment.getPost() != this) {
+            comment.setPost(this);
+        }
+    }
 
     //private LocalDateTime dday;
 
