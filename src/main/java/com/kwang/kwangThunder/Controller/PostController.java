@@ -33,7 +33,7 @@ public class PostController {
     }
 
     //GET POST DELETE PUT PATCH
-    @DeleteMapping("/") // 지우는 메소드 앞에.. 쓰기
+    @DeleteMapping("/") // 지우는 메소드 앞에 쓰는 어노테이션
     public void deletePost(@RequestParam Long postId) {
         postService.deletePost(postId);
     }
