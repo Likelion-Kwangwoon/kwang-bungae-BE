@@ -25,19 +25,19 @@ public class Comment {
     @JoinColumn(name = "post_id")
     private Post post;
 
+    @ManyToOne
+    @JoinColumn(name = "member_id")
+    private Member member;
+
     public void setPost(Post post) {
-        if (this.post != null) {
-            this.post.getComments().remove(this);
-        }
         this.post = post;
-        if (!post.getComments().contains(this)) {
-            post.addComment(this); // 코멘트 객체에 post 넣기??
-        }
+    }
+
+    public void setMember(Member member) {
+        this.member = member;
     }
 
     //private LocalDateTime datetime; 작성일시
     //private String nickname;
-    // 사용자 정보도 추가해야 됨
-
 
 }

@@ -1,6 +1,7 @@
 package com.kwang.kwangThunder.Controller;
 
 
+import com.kwang.kwangThunder.DTO.PostCreateDTO;
 import com.kwang.kwangThunder.Entity.Post;
 import com.kwang.kwangThunder.Service.PostService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,7 +16,7 @@ public class PostController {
     private PostService postService;
 
     @PostMapping("/create")
-    public Post createPost(@RequestBody Post post) {
+    public Post createPost(@RequestBody PostCreateDTO dto) {
         Post newPost = postService.createPost(post);
         return newPost;
     }
