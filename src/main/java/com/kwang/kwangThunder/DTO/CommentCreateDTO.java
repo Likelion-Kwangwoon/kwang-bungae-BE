@@ -9,7 +9,7 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @Data
 @Builder
-public class CommentRequestDTO {
+public class CommentCreateDTO { // 댓글 작성 시 사용하는 DTO
 
     private Long postId;
     private String content;
