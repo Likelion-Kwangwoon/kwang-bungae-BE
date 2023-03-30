@@ -18,16 +18,19 @@ public class PostService {
     @Autowired
     private MemberRepository memberRepository;
 
+    // 글 작성
     public Post createPost(Post post, Long memberId) {
         Member member = memberRepository.findById(memberId).get();
         post.setMember(member);
         return postRepository.save(post);
     }
 
+    // 모든 글 목록
     public List<Post> findAllPosts() {
         return postRepository.findAll();
     }
 
+    // 글 상세보기
     public Post findPost(Long postId) {
         Post post = postRepository.findById(postId).get();
         return post;
@@ -39,6 +42,7 @@ public class PostService {
         return postRepository.findByMember(member);
     }
 
+    // 글 삭제
     public void deletePost(Long postId) {
         Post post = postRepository.findById(postId).get();
         postRepository.delete(post);
