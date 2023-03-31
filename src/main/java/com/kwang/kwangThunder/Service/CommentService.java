@@ -1,8 +1,11 @@
 package com.kwang.kwangThunder.Service;
 
+import com.kwang.kwangThunder.DTO.MyPageCommentDTO;
 import com.kwang.kwangThunder.Entity.Comment;
+import com.kwang.kwangThunder.Entity.Member;
 import com.kwang.kwangThunder.Entity.Post;
 import com.kwang.kwangThunder.Repository.CommentRepository;
+import com.kwang.kwangThunder.Repository.MemberRepository;
 import com.kwang.kwangThunder.Repository.PostRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -17,10 +20,15 @@ public class CommentService {
     @Autowired
     private PostRepository postRepository;
 
-    public Comment createComment(Comment comment, Long postId)
+    @Autowired
+    private MemberRepository memberRepository;
+
+    public Comment createComment(Comment comment, Long postId,  Long memberId)
     {
         Post post = postRepository.findById(postId).get(); // get 찾아보기
+        Member member = memberRepository.findById(memberId).get();
         comment.setPost(post);
+        comment.setMember(member);
         return commentRepository.save(comment);
     }
 
@@ -28,6 +36,12 @@ public class CommentService {
 
         Post post = postRepository.findById(postId).get();
         return commentRepository.findByPost(post);
+    }
+
+    // 특정 회원이 작성한 댓글 목록
+    public List<Comment> findCommentByMemberId(Long memberId) {
+        Member member = memberRepository.findById(memberId).get();
+        return commentRepository.findByMember(member);
     }
 
     public void deleteComment(Long commentId) {

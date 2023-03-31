@@ -26,24 +26,19 @@ public class Post {
     private Integer people;
     private String link;
 
-    @OneToMany(mappedBy = "post") // Comment의 Post 객체 이름
-    private List<Comment> comments = new ArrayList<>();
+    private String content;
 
-    public void addComment(Comment comment) {
-        this.comments.add(comment);
-        if (comment.getPost() != this) {
-            comment.setPost(this);
-        }
+    @ManyToOne
+    @JoinColumn(name = "member_id")
+    private Member member;
+
+    public void setMember(Member member) {
+        this.member = member;
     }
 
-    //private LocalDateTime dday;
 
-    private String content; //길이제한 세팅
-    //회원코드
     //분야코드
     //마감여부코드
-
-
-
+    //작성일시
 
 }
