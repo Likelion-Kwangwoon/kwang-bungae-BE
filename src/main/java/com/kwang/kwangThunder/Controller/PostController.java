@@ -3,9 +3,11 @@ package com.kwang.kwangThunder.Controller;
 
 import com.kwang.kwangThunder.DTO.MyPagePostDTO;
 import com.kwang.kwangThunder.DTO.PostCreateDTO;
+import com.kwang.kwangThunder.Entity.Member;
 import com.kwang.kwangThunder.Entity.Post;
 import com.kwang.kwangThunder.Service.PostService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
@@ -18,13 +20,13 @@ public class PostController {
     private PostService postService;
 
     @PostMapping("/create")
-    public Post createPost(@RequestBody PostCreateDTO dto) {
+    public Post createPost(@AuthenticationPrincipal Member member,@RequestBody PostCreateDTO dto) {
         Post post = Post.builder().title(dto.getTitle())
                 .people(dto.getPeople())
                 .link(dto.getLink())
                 .content(dto.getContent())
                 .build(); // builder 이용하면 필요한 속성값만 넣어줄 수 있음 !
-        Post newPost = postService.createPost(post, dto.getMemberId());
+        Post newPost = postService.createPost(post, member.getEmail());
         return newPost;
     }
 
@@ -47,8 +49,8 @@ public class PostController {
 
     // 마이페이지 작성글 목록
     @GetMapping("/list/member")
-    public List<MyPagePostDTO> readPostByMemberId(@RequestParam Long memberId) {
-        List<Post> postList = postService.findPostByMemberId(memberId);
+    public List<MyPagePostDTO> readPostByMemberId(@AuthenticationPrincipal Member member) {
+        List<Post> postList = postService.findPostByEmail(member.getEmail());
         List<MyPagePostDTO> dtoList = new ArrayList<MyPagePostDTO>();
         for (Post post : postList) {
             dtoList.add(new MyPagePostDTO(post.getTitle()));

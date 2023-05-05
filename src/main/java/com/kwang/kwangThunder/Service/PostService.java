@@ -19,8 +19,8 @@ public class PostService {
     private MemberRepository memberRepository;
 
     // 글 작성
-    public Post createPost(Post post, Long memberId) {
-        Member member = memberRepository.findById(memberId).get();
+    public Post createPost(Post post, String email) {
+        Member member = memberRepository.findByEmail(email).get();
         post.setMember(member);
         return postRepository.save(post);
     }
@@ -37,8 +37,8 @@ public class PostService {
     }
 
     // 특정 회원이 작성한 글 목록
-    public List<Post> findPostByMemberId(Long memberId) {
-        Member member = memberRepository.findById(memberId).get();
+    public List<Post> findPostByEmail(String email) {
+        Member member = memberRepository.findByEmail(email).get();
         return postRepository.findByMember(member);
     }
 

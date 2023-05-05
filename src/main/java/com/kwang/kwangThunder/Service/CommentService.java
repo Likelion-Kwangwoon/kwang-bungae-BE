@@ -23,10 +23,10 @@ public class CommentService {
     @Autowired
     private MemberRepository memberRepository;
 
-    public Comment createComment(Comment comment, Long postId,  Long memberId)
+    public Comment createComment(Comment comment, Long postId,  String email)
     {
         Post post = postRepository.findById(postId).get(); // get 찾아보기
-        Member member = memberRepository.findById(memberId).get();
+        Member member = memberRepository.findByEmail(email).get();
         comment.setPost(post);
         comment.setMember(member);
         return commentRepository.save(comment);
@@ -39,8 +39,8 @@ public class CommentService {
     }
 
     // 특정 회원이 작성한 댓글 목록
-    public List<Comment> findCommentByMemberId(Long memberId) {
-        Member member = memberRepository.findById(memberId).get();
+    public List<Comment> findCommentByMemberEmail(String email) {
+        Member member = memberRepository.findByEmail(email).get();
         return commentRepository.findByMember(member);
     }
 

@@ -7,6 +7,7 @@ import com.kwang.kwangThunder.Entity.Comment;
 import com.kwang.kwangThunder.Entity.Member;
 import com.kwang.kwangThunder.Service.CommentService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
@@ -19,10 +20,10 @@ public class CommentController {
     private CommentService commentService;
 
     @PostMapping("/create")
-    public CommentCreateDTO createComment(@RequestBody CommentCreateDTO dto) {
+    public CommentCreateDTO createComment(@AuthenticationPrincipal Member member,@RequestBody CommentCreateDTO dto) {
         Comment comment = Comment.builder().content(dto.getContent()).build(); // builder 사용 시 필요한 요소만 설정 가능
-        Comment newComment = commentService.createComment(comment,dto.getPostId(), dto.getMemberId());
-        CommentCreateDTO newDto = new CommentCreateDTO(dto.getPostId(), dto.getMemberId(), comment.getContent());
+        Comment newComment = commentService.createComment(comment,dto.getPostId(), member.getEmail());
+        CommentCreateDTO newDto = new CommentCreateDTO(dto.getPostId(), member.getEmail(), comment.getContent());
         return newDto;
         // 그럼 여기서 postId도 설정
     }
@@ -40,8 +41,8 @@ public class CommentController {
 
     // 마이페이지 댓글 목록
     @GetMapping("/list/member")
-    public List<MyPageCommentDTO> readCommentByMemberId(@RequestParam Long memberId) {
-        List<Comment> commentList = commentService.findCommentByMemberId(memberId);
+    public List<MyPageCommentDTO> readCommentByMemberId(@AuthenticationPrincipal Member member) {
+        List<Comment> commentList = commentService.findCommentByMemberEmail(member.getEmail());
         List<MyPageCommentDTO> dtoList = new ArrayList<MyPageCommentDTO>();
         for (Comment comment : commentList) {
             dtoList.add(new MyPageCommentDTO(comment.getContent()));

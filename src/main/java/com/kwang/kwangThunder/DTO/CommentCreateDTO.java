@@ -12,6 +12,6 @@ import lombok.NoArgsConstructor;
 public class CommentCreateDTO { // 댓글 작성 시 사용하는 DTO
 
     private Long postId;
-    private Long memberId;
+    private String memberId;
     private String content;
 }
