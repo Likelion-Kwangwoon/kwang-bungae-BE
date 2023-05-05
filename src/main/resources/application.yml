@@ -1,0 +1,43 @@
+
+
+
+
+
+
+spring:
+  security:
+    oauth2:
+      client:
+        registration:
+          kakao:
+          client-id: 5a084de8713fca542181701c7dbf3a59
+          redirect-uri: https://notodo.shop/login/oauth2/code/kakao
+          authorization-grant-type: authorization_code
+          client-authentication-method: POST
+          client-name: Kakao
+          scope:
+          - profile_nickname
+          - account_email
+
+provider:
+kakao:
+authorization-uri: https://kauth.kakao.com/oauth/authorize
+token-uri: https://kauth.kakao.com/oauth/token
+user-info-uri: https://kapi.kakao.com/v2/user/me
+user-name-attribute: id
+#
+#    jpa:
+#      open-in-view: true
+#      database-platform: org.h2.Driver
+#      show-sql: true
+#      properties:
+#        hibernate.format_sql: true
+#        hibernate.use_sql_comments: true
+#      hibernate:
+#        ddl-auto: create
+#
+#    datasource:
+#    driver-class-name: com.mysql.cj.jdbc.Driver
+#    url: jdbc:mysql://34.22.75.189:3306/notodo?useSSL=false&serverTimezone=UTC
+#    username: hyuk
+#    password: Chlgurtns98!

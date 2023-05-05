@@ -1,13 +1,15 @@
 package com.kwang.kwangThunder.Entity;
 
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.Id;
+
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
 
 @Entity
 @Data
@@ -22,4 +24,8 @@ public class Member {
     private Long memberId;
 
     private String email;
+    private String nickname;
+
+    private String thumbnail;
+
 }
